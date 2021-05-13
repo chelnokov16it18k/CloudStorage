@@ -1,0 +1,17 @@
+﻿@model IEnumerable<CloudStorage.Models.File>
+@{
+    ViewData["Title"] = "Добавление файла";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    <h3>Выберите файл для загрузки</h3>
+        <input type="file" name="uploadedFile" /><br>
+        <input type="submit" value="Загрузить" />
+
+}
+else
+{
+    <p>Трeбуется Авторизация(</p>
+}
