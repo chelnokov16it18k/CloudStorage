@@ -17,7 +17,7 @@ namespace CloudStorage.Controllers
     public class UsersController : Controller
     {
         UserManager<User> _userManager;
-        private readonly UsersContext _context;
+        UsersContext _context;
         public UsersController(UserManager<User> userManager, UsersContext context)
         {
             _userManager = userManager;
@@ -34,6 +34,17 @@ namespace CloudStorage.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, Year = model.Year };
+                if (model.UserPic != null)
+                {
+                    byte[] imageData = null;
+                    // считываем переданный файл в массив байтов
+                    using (var binaryReader = new BinaryReader(model.UserPic.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.UserPic.Length);
+                    }
+                    // установка массива байтов
+                    user.UserPic = imageData;
+                }
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -58,6 +69,7 @@ namespace CloudStorage.Controllers
                 return NotFound();
             }
             EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, Year = user.Year };
+
             return View(model);
         }
 
@@ -72,6 +84,18 @@ namespace CloudStorage.Controllers
                     user.Email = model.Email;
                     user.UserName = model.Email;
                     user.Year = model.Year;
+                    if (model.UserPic != null)
+                    {
+                        byte[] imageData = null;
+                        // считываем переданный файл в массив байтов
+                        using (var binaryReader = new BinaryReader(model.UserPic.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)model.UserPic.Length);
+                        }
+                        // установка массива байтов
+                        user.UserPic = imageData;
+                    }
+                    
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)

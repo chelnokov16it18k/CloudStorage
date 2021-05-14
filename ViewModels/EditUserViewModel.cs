@@ -12,5 +12,7 @@ namespace CloudStorage.ViewModels
         public string Name { get; set; }
         public string Email { get; set; }
         public int Year { get; set; }
+
+        public IFormFile UserPic { get; set; }
     }
 }

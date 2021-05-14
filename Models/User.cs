@@ -10,5 +10,6 @@ namespace CloudStorage.Models
     {
         public String Name { get; set; }
         public int Year { get; set; }
+        public byte[] UserPic { get; set; }
     }
 }

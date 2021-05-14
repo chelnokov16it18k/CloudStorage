@@ -31,5 +31,7 @@ namespace CloudStorage.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Подтвердить пароль")]
         public string PasswordConfirm { get; set; }
+        [Display(Name = "UserPic")]
+        public IFormFile UserPic { get; set; }
     }
 }

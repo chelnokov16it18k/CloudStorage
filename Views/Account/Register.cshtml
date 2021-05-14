@@ -28,6 +28,11 @@
         <span asp-validation-for="PasswordConfirm"></span>
     </div>
     <div>
+        <label asp-for="UserPic"></label><br />
+        <input asp-for="UserPic" type="file" class="form-control-file"/>
+        <span asp-validation-for="UserPic"></span>
+    </div>
+    <div>
         <input type="submit" value="Регистрация" />
     </div>
 </form>

@@ -20,6 +20,10 @@
         <label asp-for="Year" class="control-label">Год рождения</label>
         <input type="number" asp-for="Year" class="form-control" />
     </div>
+    <div>
+        <label asp-for="UserPic" class="control-label">Аватар</label>
+        <input type="file" name="UserPic" accept=".png,.jpg,.jpeg,.gif,.tif" class="form-control-file" />
+    </div>
     <div class="form-group">
         <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
     </div>

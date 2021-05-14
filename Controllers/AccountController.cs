@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,16 +14,18 @@ namespace CloudStorage.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(_userManager.Users.ToList());
         }
 
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        UsersContext _context;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, UsersContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
         [HttpGet]
         public IActionResult Register()
@@ -35,12 +38,22 @@ namespace CloudStorage.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Name = model.Name, Email = model.Email, UserName = model.Email, Year = model.Year };
-                // добавляем пользователя
+                if (model.UserPic != null)
+                {
+                    byte[] imageData = null;
+                    // считываем переданный файл в массив байтов
+                    using (var binaryReader = new BinaryReader(model.UserPic.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.UserPic.Length);
+                    }
+                    // установка массива байтов
+                    user.UserPic = imageData;
+                }
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // установка куки
-                    await _signInManager.SignInAsync(user, false);
+                        // установка куки
+                        await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
                 else

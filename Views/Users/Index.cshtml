@@ -6,10 +6,20 @@
 <a asp-action="Create">Добавить пользователя</a>
 
 <table class="table">
-    <tr><th>Id</th><th>Имя</th><th>Email</th><th>Год</th><th></th></tr>
+    <tr><th>Аватар</th><th>Id</th><th>Имя</th><th>Email</th><th>Год</th><th></th></tr>
     @foreach (var user in Model)
     {
 <tr>
+    <td>
+        @if (user.UserPic != null)
+        {
+            <img style='width:60px; height:60px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(user.UserPic))" />
+        }
+        else
+        {
+            <img style='width:60px; height:60px;' src="~/Assets/userpic_default.png" />
+        }
+    </td>
     <td>@user.Id</td>
     <td>@user.Name</td>
     <td>@user.Email</td>
