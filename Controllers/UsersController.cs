@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CloudStorage.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         UserManager<User> _userManager;

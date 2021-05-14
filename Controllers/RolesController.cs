@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CloudStorage.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         RoleManager<IdentityRole> _roleManager;
