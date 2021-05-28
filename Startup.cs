@@ -30,6 +30,8 @@ namespace CloudStorage
     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<UsersContext>();
+            services.AddDbContext<FilesContext>(options =>
+    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
         }

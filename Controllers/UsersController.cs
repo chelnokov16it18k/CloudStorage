@@ -68,7 +68,7 @@ namespace CloudStorage.Controllers
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, Year = user.Year };
+            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Name = user.Name, Email = user.Email, Year = user.Year };
 
             return View(model);
         }
@@ -95,8 +95,8 @@ namespace CloudStorage.Controllers
                         // установка массива байтов
                         user.UserPic = imageData;
                     }
-                    
-
+                    _context.Users.Update(user);
+                    _context.SaveChanges();
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {

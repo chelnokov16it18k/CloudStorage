@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<CloudStorage.Models.User>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,11 +25,11 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Upload">Загрузить</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Files" asp-action="Upload">Загрузить</a>
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Политика приватности</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">О сайте</a>
@@ -39,9 +40,8 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        
-                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Edit">
-                            <img class="img-circle" style='width:35px; height:35px; margin:4px;' src="/Assets/userpic_default.png" />
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Edit">
+                            <img class="img-circle" style='width:35px; height:35px; margin:4px;' src="~/Assets/userpic_default.png" />
                             <div class="navbar-brand">  @User.Identity.Name</div>
                         </a>
 
@@ -55,13 +55,13 @@
                     }
                     else
                     {
-                    <div class="navbar-brand">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Войти в систему</a>
-                    </div>
+                        <div class="navbar-brand">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Войти в систему</a>
+                        </div>
                     }
                 }
-                </div>
-</nav>
+            </div>
+        </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
