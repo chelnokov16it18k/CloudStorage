@@ -1,5 +1,4 @@
-﻿@model IEnumerable<CloudStorage.Models.User>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -44,8 +43,6 @@
                             <img class="img-circle" style='width:35px; height:35px; margin:4px;' src="~/Assets/userpic_default.png" />
                             <div class="navbar-brand">  @User.Identity.Name</div>
                         </a>
-
-                        //<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Выход</a>
 
                         <div class="navbar-brand">
                             <form method="post" asp-controller="Account" asp-action="Logout">

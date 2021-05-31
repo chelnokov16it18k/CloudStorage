@@ -61,7 +61,7 @@ namespace CloudStorage
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Files}/{action=Index}/{id?}");
             });
         }
     }

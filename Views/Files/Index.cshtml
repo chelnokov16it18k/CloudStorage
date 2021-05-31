@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CloudStorage.Models.FileModel>
+
+<h3>Все файлы</h3>
+@foreach (var f in Model)
+{
+    <p>@f.Id</p>
+    <p>@f.Path</p>
+    <hr>
+}

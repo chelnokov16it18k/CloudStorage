@@ -2,6 +2,7 @@
 using System.Linq;
 using CloudStorage.Models;
 using System.IO;
+using System;
 
 namespace FileUploadApp.Controllers
 {
@@ -18,24 +19,34 @@ namespace FileUploadApp.Controllers
             return View(_context.Files.ToList());
         }
 
+        public IActionResult Upload() => View();
+
         [HttpPost]
         public IActionResult Upload(FileUploadViewModel pvm)
         {
             FileModel file = new FileModel();
             if (pvm.UploadedFile != null)
             {
-                byte[] imageData = null;
+                byte[] fileBytes = null;
+
                 // считываем переданный файл в массив байтов
                 using (var binaryReader = new BinaryReader(pvm.UploadedFile.OpenReadStream()))
                 {
-                    imageData = binaryReader.ReadBytes((int)pvm.UploadedFile.Length);
+                    fileBytes = binaryReader.ReadBytes((int)pvm.UploadedFile.Length);
                 }
                 // установка массива байтов
-                file.content = imageData;
+                file.Content = fileBytes;
+                file.Path = pvm.UploadedFile.FileName;
             }
             _context.Files.Add(file);
-            _context.SaveChanges();
-
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.Message);
+            }
             return RedirectToAction("Index");
         }
     }
